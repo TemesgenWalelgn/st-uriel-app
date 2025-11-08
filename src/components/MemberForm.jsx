@@ -26,7 +26,7 @@ const initialFormData = {
     // Personal Info
     memberid: '',
     fullName: '',
-    phone: '+251...',
+    phone: '+251',
     email: '',
     dateOfBirth: '',
     gender: 'ወንድ',
@@ -60,7 +60,7 @@ const initialFormData = {
     // Emergency Contact
     emergencyContact: {
         name: '',
-        phone: '+251...',
+        phone: '+251',
         address: ''
     },
 
@@ -300,7 +300,7 @@ const MemberForm = ({ db, userId, memberToEdit, onComplete }) => {
             return { ...prev, [name]: value };
         });
     }, []);
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -407,7 +407,7 @@ const MemberForm = ({ db, userId, memberToEdit, onComplete }) => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <InputField label="ID Number (መ.ቁ)" name="memberid" value={formData.memberid} onChange={handleChange} required placeholder="UR000" />
                         <InputField label="Full Name (ሙሉ ስም ከነ አያት)" name="fullName" value={formData.fullName} onChange={handleChange} required placeholder="First Name, Father's Name, Grandfather's Name" />
-                        <InputField label="Phone (ስልክ)" name="phone" value={formData.phone} onChange={handleChange} required placeholder="+251..." type="tel" />
+                        <InputField label="Phone (ስልክ)" name="phone" value={formData.phone} onChange={handleChange} required placeholder="+251" type="tel" />
                         <InputField label="Email (ኢሜይል)" name="email" value={formData.email} onChange={handleChange} placeholder="example@domain.com" type="email" />
                         <InputField label="Date of Birth (የትውልድ ቀን)" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} required type="date" />
                     </div>
@@ -514,7 +514,18 @@ const MemberForm = ({ db, userId, memberToEdit, onComplete }) => {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <InputField label="Clergy Rank (የክህነት ማዕረግ)" name="clergyRank" value={formData.clergyRank} onChange={handleChange} required placeholder="E.g., Deacon, Sub-Deacon" />
+                        <SelectField
+                            label="Clergy Rank (የክህነት ማዕረግ)"
+                            name="clergyRank"
+                            value={formData.clergyRank}
+                            onChange={handleChange}
+                            options={[
+                                { value: 'የለም', label: 'የለም (None)' },
+                                { value: 'ዲቁና', label: 'ዲቁና (Deacon)' },
+                                { value: 'ክህነት', label: 'ክህነት (Priest)' }
+                                
+                            ]}
+                        />
                         <InputField label="Clergy Date (ክህነት የተቀበለበት ዘመን)" name="clergyDate" value={formData.clergyDate} onChange={handleChange} type="date" />
                         <InputField label="Clergy Church (ክህነት የሰጠበት ቤተክርስትያን)" name="clergyChurch" value={formData.clergyChurch} onChange={handleChange} placeholder="Church Name" />
                     </div>
